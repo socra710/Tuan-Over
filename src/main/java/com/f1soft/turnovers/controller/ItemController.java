@@ -24,6 +24,7 @@ public class ItemController {
 
     @PostMapping("/api/items")
     public String test(@RequestBody TestDto dto) {
+        System.out.println("111");
         return dto.toString();
     }
 }
