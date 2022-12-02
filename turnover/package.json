@@ -13,9 +13,9 @@
     "firebase": "^9.13.0",
     "mitt": "^3.0.0",
     "pinia": "^2.0.23",
+    "pinia-plugin-persistedstate": "^3.0.1",
     "vue": "^3.2.41",
-    "vue-router": "^4.1.6",
-    "vuex": "^4.0.2"
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@types/node": "^18.11.8",

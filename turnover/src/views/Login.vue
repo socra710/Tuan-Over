@@ -43,13 +43,13 @@
   import { useRouter } from "vue-router";
   import firebase from "@/firebase";
   import { getAuth, setPersistence, signInWithPopup, GoogleAuthProvider, browserSessionPersistence } from "firebase/auth";
-  import { useStore } from "vuex";
+  import { userInfo } from "@/stores/UserInfo";
 
   export default defineComponent({
     name: "Login",
     setup() {
+      const storeUserInfo = userInfo();
       const router = useRouter();
-      const store = useStore();
 
       function login() {
         const provider = new GoogleAuthProvider();
@@ -57,11 +57,11 @@
 
         auth.onAuthStateChanged(user => {
           if (user) {
-            store.commit("UserInfo/setUserInfo", {
+            storeUserInfo.setUserInfo({
               userId: user.email,
               userNm: user.displayName,
               userImg: user.photoURL
-            })
+            });
             router.replace("/dashboard");
           } else {
             setPersistence(auth, browserSessionPersistence)
@@ -74,11 +74,11 @@
                     const user = result.user;
 
                     if (user) {
-                      store.commit("UserInfo/setUserInfo", {
+                      storeUserInfo.setUserInfo({
                         userId: user.email,
                         userNm: user.displayName,
                         userImg: user.photoURL
-                      })
+                      });
                       router.replace("/dashboard");
                     }
                   }).catch((error) => {

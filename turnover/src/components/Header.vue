@@ -117,20 +117,18 @@
 <script lang="ts">
 import {computed, defineComponent, ref} from "vue";
 import { useSidebar } from "../hooks/useSidebar";
-import { useStore } from "vuex";
+import { userInfo } from "@/stores/UserInfo";
 
 export default defineComponent({
   setup(props, {emit}) {
-    const store = useStore();
 
     const dropdownOpen = ref(false);
     const { isOpen } = useSidebar();
-    const userInfo = computed(() => store.getters["UserInfo/getUserInfo"]);
 
     return {
       isOpen,
       dropdownOpen,
-      userInfo
+      userInfo: computed(() => userInfo().getUserInfo)
     };
   },
 });
