@@ -37,10 +37,10 @@
 
                   <div class="ml-4">
                     <div class="text-sm font-medium leading-5 text-gray-900">
-                      {{ item.id }}
+                      {{ item["id"] }}
                     </div>
                     <div class="text-sm leading-5 text-gray-500">
-                      {{ item.name }}
+                      {{ item["name"] }}
                     </div>
                   </div>
                 </div>
@@ -86,17 +86,17 @@
         items: []
       })
 
-      var obj2 = {
-        factoyCode: '000001'
-        };
-      axios.post("/api/items", obj2).then(({data}) => {
-        console.log(data);
-        // state.items = data;
-      });
-      // axios.get("/api/items").then(({data}) => {
+      // var obj2 = {
+      //   factoyCode: '000001'
+      //   };
+      // axios.post("/api/items", obj2).then(({data}) => {
       //   console.log(data);
-      //   state.items = data;
+      //   // state.items = data;
       // });
+      axios.get("/api/items").then(({data}) => {
+        console.log(data);
+        state.items = data;
+      });
 
       return {
         state

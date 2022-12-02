@@ -8,6 +8,7 @@ export const userInfo = defineStore("list",{
     }),
     persist: {
         key: 'userInfo',
+        storage: sessionStorage
     },
     actions: {
         setUserInfo(objUser: any){

@@ -24,7 +24,7 @@
           const { currentUser } = auth;
           console.log('Currently logged in user', currentUser);
         } else {
-          router.push('/');
+          router.replace('/');
         }
       });
 
