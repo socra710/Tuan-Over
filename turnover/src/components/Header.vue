@@ -69,7 +69,7 @@
         >
           <img
             class="object-cover w-full h-full"
-            :src="userImage"
+            :src="userInfo.userImg"
             alt="Your avatar"
           />
         </button>
@@ -115,38 +115,22 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onMounted, ref} from "vue";
-import {useSidebar} from "../hooks/useSidebar";
-import {getAuth} from "firebase/auth";
-import firebase from "@/firebase";
+import {computed, defineComponent, ref} from "vue";
+import { useSidebar } from "../hooks/useSidebar";
+import { useStore } from "vuex";
 
 export default defineComponent({
   setup(props, {emit}) {
+    const store = useStore();
+
     const dropdownOpen = ref(false);
     const { isOpen } = useSidebar();
-
-    const auth = getAuth(firebase);
-    // let userImage = computed(
-    //     () => {
-    //       const { currentUser } = auth;
-    //       return currentUser?.photoURL;
-    //     }
-    // );
-
-    let userImage;
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        const { currentUser } = auth;
-        // console.log('Currently logged in user', currentUser);
-        // console.log(currentUser?.photoURL);
-        userImage = currentUser?.photoURL;
-      }
-    });
+    const userInfo = computed(() => store.getters["UserInfo/getUserInfo"]);
 
     return {
       isOpen,
       dropdownOpen,
-      userImage
+      userInfo
     };
   },
 });

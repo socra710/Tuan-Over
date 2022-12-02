@@ -21,8 +21,7 @@
             fill="white"
           />
         </svg>
-        
-        <!-- <img src="./home.svg" alt="킹 (체스 말)"> -->
+        <div class="text-xl">Turnover</div>
       </div>
 
       <form class="mt-4" @submit.prevent="login">
@@ -40,15 +39,17 @@
 </template>
 
 <script lang="ts">
-  import {defineComponent} from "vue";
-  import {useRouter} from "vue-router";
+  import { defineComponent } from "vue";
+  import { useRouter } from "vue-router";
   import firebase from "@/firebase";
-  import {getAuth, setPersistence, signInWithPopup, GoogleAuthProvider, browserSessionPersistence} from "firebase/auth";
+  import { getAuth, setPersistence, signInWithPopup, GoogleAuthProvider, browserSessionPersistence } from "firebase/auth";
+  import { useStore } from "vuex";
 
   export default defineComponent({
     name: "Login",
     setup() {
       const router = useRouter();
+      const store = useStore();
 
       function login() {
         const provider = new GoogleAuthProvider();
@@ -56,6 +57,11 @@
 
         auth.onAuthStateChanged(user => {
           if (user) {
+            store.commit("UserInfo/setUserInfo", {
+              userId: user.email,
+              userNm: user.displayName,
+              userImg: user.photoURL
+            })
             router.replace("/dashboard");
           } else {
             setPersistence(auth, browserSessionPersistence)
@@ -68,10 +74,12 @@
                     const user = result.user;
 
                     if (user) {
+                      store.commit("UserInfo/setUserInfo", {
+                        userId: user.email,
+                        userNm: user.displayName,
+                        userImg: user.photoURL
+                      })
                       router.replace("/dashboard");
-                      // router.push({
-                      //   name: 'Dashboard'
-                      // })
                     }
                   }).catch((error) => {
                 const credential = GoogleAuthProvider.credentialFromError(error);

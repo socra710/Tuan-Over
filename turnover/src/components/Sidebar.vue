@@ -35,7 +35,7 @@
           </svg>
 
           <span class="mx-2 text-2xl font-semibold text-white"
-            >Tuan-over</span
+            >Tuanover</span
           >
         </div>
       </div>

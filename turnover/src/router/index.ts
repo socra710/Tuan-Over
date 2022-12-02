@@ -17,19 +17,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
-    meta: { requiresAuth: false },
-    beforeEnter: (to, from) => {
-      const auth = getAuth(firebase);
-      const router = useRouter();
-      auth.onAuthStateChanged(user => {
-        if (user) {
-          const { currentUser } = auth;
-          console.log('Currently logged in user', currentUser);
-        } else {
-          return false;
-        }
-      });
-    },
+    meta: { requiresAuth: false }
   },
   {
     path: "/linkfor",
