@@ -1,74 +1,27 @@
 <template>
-  <div class="flex flex-col mt-8">
-    <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-      <div
-        class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
-      >
-        <table class="min-w-full">
-          <thead>
-            <tr>
-              <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                Name
-              </th>
-              <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                Title
-              </th>
-              <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                Status
-              </th>
-              <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                Role
-              </th>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
-            </tr>
-          </thead>
-
-          <tbody class="bg-white">
-            <tr v-for="(item, index) in state.items" :key="index">
-              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 w-10 h-10">
-                    <img
-                      class="w-10 h-10 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
-                    />
-                  </div>
-
-                  <div class="ml-4">
-                    <div class="text-sm font-medium leading-5 text-gray-900">
-                      {{ item["id"] }}
-                    </div>
-                    <div class="text-sm leading-5 text-gray-500">
-                      {{ item["name"] }}
-                    </div>
-                  </div>
-                </div>
-              </td>
-
-              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                <div class="text-sm leading-5 text-gray-900">
-                  {{ item }}
-                </div>
-                <div class="text-sm leading-5 text-gray-500">
-                  {{ item }}
-                </div>
-              </td>
-
-              <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
-                <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">{{ item }}</span>
-              </td>
-
-              <td class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap" >
-                {{ item }}
-              </td>
-
-              <td class="px-6 py-4 text-sm font-medium leading-5 text-right border-b border-gray-200 whitespace-nowrap">
-                <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a >
-              </td>
-            </tr>
-          </tbody>
-        </table>
+  <div>
+    <div class="flex flex-col">
+      <div class="flex flex-row">
+        <div class="flex-1 text-center"><h3 class="text-3xl font-medium text-gray-700">My Links</h3></div>
+        <div class="flex-1 text-center">
+          <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+            <svg class="w-8 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+            <span>Add Link</span>
+          </button>
+        </div>
+      </div>
+      <div class="flex justify-center mt-5" v-for="(item, index) in state.items" :key="index">
+        <div class="flex-1 flex-col bg-white p-5">
+          <div class="flex justify-end">
+            <button>
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+            </button>
+          </div>
+          <dt class="mb-5 text-gray-500 md:text-lg dark:text-gray-400"><a href="https://naver.com" target="_blank">{{ item.title }}</a></dt>
+          <dd class="text-lg font-semibold">
+            <span class="inline-flex px-3 text-xs leading-5 text-purple-500 bg-purple-200 rounded-full mx-1" v-for="tag in (item.tagNames.split(','))">{{ tag }}</span>
+          </dd>
+        </div>
       </div>
     </div>
   </div>
@@ -83,17 +36,11 @@
     setup() {
 
       const state = reactive({
-        items: []
+        items: [],
+        tagsNames: []
       })
 
-      // var obj2 = {
-      //   factoyCode: '000001'
-      //   };
-      // axios.post("/api/items", obj2).then(({data}) => {
-      //   console.log(data);
-      //   // state.items = data;
-      // });
-      axios.get("/api/items").then(({data}) => {
+      axios.get("/api/links").then(({data}) => {
         console.log(data);
         state.items = data;
       });
