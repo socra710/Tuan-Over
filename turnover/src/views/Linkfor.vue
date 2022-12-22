@@ -36,8 +36,7 @@
     setup() {
 
       const state = reactive({
-        items: [],
-        tagsNames: []
+        items: []
       })
 
       axios.get("/api/links").then(({data}) => {
