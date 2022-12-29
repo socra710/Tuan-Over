@@ -1,5 +1,6 @@
 package com.f1soft.turnovers.entity;
 
+import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+
+import java.util.List;
 
 import static com.f1soft.turnovers.entity.QMember.member;
 import static org.assertj.core.api.Assertions.*;
@@ -61,6 +64,7 @@ public class QuerydslBasicTest {
 
     @Test
     public void search() {
+        //검색 조건
         Member findMember = queryFactory
                 .selectFrom(member)
                 .where(member.username.eq("member1")
@@ -68,5 +72,46 @@ public class QuerydslBasicTest {
                 .fetchOne();
 
         assertThat(findMember.getUsername()).isEqualTo("member1");
+    }
+
+    @Test
+    public void searchAndParam() {
+        Member findMember = queryFactory
+                .selectFrom(member)
+                .where(
+                        member.username.eq("member1"),
+                        member.age.eq(10)
+                )
+                .fetchOne();
+
+        assertThat(findMember.getUsername()).isEqualTo("member1");
+    }
+    
+    @Test
+    public void resultFetch() {
+        //결과 조회
+        /*List<Member> fetch = queryFactory
+                .selectFrom(member)
+                .fetch();//list 출력
+        //데이터 없으면 빈 리스트 반환
+
+        Member fetchOne = queryFactory
+                .selectFrom(member)
+                .fetchOne();//1개만 가져올때 사용
+        //데이터 없으면 null, 둘 이상이면 Exception
+
+        Member fetchFirst = queryFactory
+                .selectFrom(member)
+                .fetchFirst();//=limit(1).fetchOne*/
+
+        QueryResults<Member> results = queryFactory
+                .selectFrom(member)
+                .fetchResults();//페이징 정보 포함, total count 쿼리 추가 실행
+        results.getTotal();
+
+        //그 외 fetchCount
+        //Count기능
+
+        List<Member> content = results.getResults();
     }
 }
