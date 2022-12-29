@@ -10,16 +10,16 @@
           </button>
         </div>
       </div>
-      <div class="flex justify-center mt-5" v-for="(item, index) in state.items" :key="index">
+      <div class="flex justify-center mt-5" v-for="(item, index) in links.items" :key="index">
         <div class="flex-1 flex-col bg-white p-5">
           <div class="flex justify-end">
             <button>
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
             </button>
           </div>
-          <dt class="mb-5 text-gray-500 md:text-lg dark:text-gray-400"><a href="https://naver.com" target="_blank">{{ item.title }}</a></dt>
+          <dt class="mb-5 text-gray-500 md:text-lg dark:text-gray-400"><a href="https://naver.com" target="_blank">{{ item['title'] }}</a></dt>
           <dd class="text-lg font-semibold">
-            <span class="inline-flex px-3 text-xs leading-5 text-purple-500 bg-purple-200 rounded-full mx-1" v-for="tag in (item.tagNames.split(','))">{{ tag }}</span>
+            <span class="inline-flex px-3 text-xs leading-5 text-purple-500 bg-purple-200 rounded-full mx-1" v-for="tag in splitedList(item['tagNames'])">{{ tag }}</span>
           </dd>
         </div>
       </div>
@@ -28,26 +28,28 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive } from "vue";
+import {defineComponent, reactive, ref} from "vue";
   import axios from "axios";
 
-  export default defineComponent({
-    name: "Linkfor",
-    setup() {
+export default defineComponent({
+  name: "Linkfor",
+  setup() {
+    let links = reactive({
+        items: []
+    })
 
-      const state = reactive({
-        items: [],
-        tagsNames: []
-      })
+    axios.get("/api/links").then(({data}) => {
+      links.items = data;
+    });
 
-      axios.get("/api/links").then(({data}) => {
-        console.log(data);
-        state.items = data;
-      });
+    function splitedList(row: string | null) {
+      return (row != null) ? row.split(',') : '';
+    }
 
-      return {
-        state
-      }
-    },
-  });
+    return {
+      links,
+      splitedList
+    }
+  },
+});
 </script>
