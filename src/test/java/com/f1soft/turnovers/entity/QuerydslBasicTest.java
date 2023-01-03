@@ -67,6 +67,7 @@ public class QuerydslBasicTest {
     @Test
     public void search() {
         //검색 조건
+        //member: QMember static import해서 사용함
         Member findMember = queryFactory
                 .selectFrom(member)
                 .where(member.username.eq("member1")
@@ -189,6 +190,7 @@ public class QuerydslBasicTest {
      */
     @Test
     public void group() throws Exception {
+        //team: QTeam을 static import해서 사용함
         List<Tuple> result = queryFactory
                 .select(team.name, member.age.avg())
                 .from(member)
