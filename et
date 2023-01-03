@@ -1,0 +1,112 @@
+[33mcommit 70cfc026bd18bb17994b61a02d01adf35bdf2144[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: chuseok <90127lucy@gmail.com>
+Date:   Thu Dec 29 17:45:38 2022 +0900
+
+    querydsl 검색 조건, 결과 조회 쿼리 사용예시 추가
+
+[33mcommit e803fec8fb4095b29534537039c83cd10ce6978d[m[33m ([m[1;32mbrch-90127lucy[m[33m)[m
+Author: chuseok <90127lucy@gmail.com>
+Date:   Thu Dec 29 17:21:48 2022 +0900
+
+    modity application setting
+
+[33mcommit bacb53b21132eb066a0ddb2d855a2229c17c03de[m
+Author: chuseok <90127lucy@gmail.com>
+Date:   Thu Dec 29 16:27:36 2022 +0900
+
+    Add querydsl properties and querydsl test code
+
+[33mcommit c5bab25440af9c2e77b0a90439197a3989e00c43[m
+Author: 김기형 <socra710@gmail.com>
+Date:   Thu Dec 22 13:56:07 2022 +0900
+
+    Linkfor api 추가
+    마리아 디비 links 테이블 생성 및 컬럼 추가
+    테스트 데이터 등록
+    
+    api 호출해서 데이터 출력 확인
+
+[33mcommit 67f2dc567ad8203f18b0b797c9bc7fa7320be7f5[m
+Author: 김기형 <socra710@gmail.com>
+Date:   Mon Dec 19 18:13:05 2022 +0900
+
+    Linkfor api 추가
+    마리아 디비 links 테이블 생성 및 컬럼 추가
+    테스트 데이터 등록
+    
+    api 호출해서 데이터 출력 확인
+
+[33mcommit fdcb4135571e67d015d1dab11a77751e12d2bdf8[m
+Author: 김기형 <socra710@gmail.com>
+Date:   Fri Dec 2 17:54:49 2022 +0900
+
+    firebase 구글 로그인 사용
+    로그인시 사용자 아이디,이름,이미지 보관
+    
+    이후 로그인시 턴오버에 로그인할때
+    턴오버 사용자로 등록안되어 있으면 자동으로 등록하도록 추가
+    
+    턴오버에서는 사용자 정보는 이메일, 이름, 프로필사진만 사용
+
+[33mcommit d961e7bff46e35a8c572822f1b43b5da4e4edcfa[m
+Author: 김기형 <socra710@gmail.com>
+Date:   Fri Dec 2 17:28:09 2022 +0900
+
+    vuex store 사용안하고
+    vue3에 맞는 피니아 사용
+    로컬스토리지에 저장해서 새로고침해도 유지
+
+[33mcommit e7366f01ebf165d5a0752af22855ad358798011d[m
+Author: 김기형 <socra710@gmail.com>
+Date:   Fri Dec 2 16:10:16 2022 +0900
+
+    vuex store 처리
+    store는 모듈화 시켜사용
+
+[33mcommit 4b5e0d0063b1353af7b0b6dc6245e402a266adab[m
+Author: 김기형 <socra710@gmail.com>
+Date:   Thu Dec 1 18:37:05 2022 +0900
+
+    테스트33
+
+[33mcommit 4e4f02d4772906b4577bcaf5a1545a8599e2594c[m
+Author: 김기형 <socra710@gmail.com>
+Date:   Thu Dec 1 18:33:34 2022 +0900
+
+    테스트2
+
+[33mcommit 0572114a2055905f86ccdef204e05187b7b15825[m
+Author: 김기형 <socra710@gmail.com>
+Date:   Thu Dec 1 18:29:54 2022 +0900
+
+    테스트2
+
+[33mcommit 0afc2787c6582e930979c06d242f42e72cad019f[m
+Author: 김기형 <socra710@gmail.com>
+Date:   Thu Dec 1 18:29:33 2022 +0900
+
+    테스트
+
+[33mcommit ac46c4c0777a05b2061fd33bbaf7e66ffb58226d[m
+Author: 김기형 <socra710@gmail.com>
+Date:   Thu Dec 1 18:25:44 2022 +0900
+
+    테스트
+
+[33mcommit c1ed8e1968c14be21a205b83f6c6eb1ed4ac74a9[m
+Author: 김기형 <socra710@gmail.com>
+Date:   Thu Dec 1 18:08:42 2022 +0900
+
+    테스트
+
+[33mcommit 13740e24255a9e874e102793412824636a5d3e7c[m
+Author: 김기형 <socra710@gmail.com>
+Date:   Thu Dec 1 18:07:26 2022 +0900
+
+    테스트
+
+[33mcommit 577f753f131d9b6e8cb9b9896e3dd46d9dcf3f22[m
+Author: 김기형 <socra710@gmail.com>
+Date:   Thu Dec 1 18:04:21 2022 +0900
+
+    신규
