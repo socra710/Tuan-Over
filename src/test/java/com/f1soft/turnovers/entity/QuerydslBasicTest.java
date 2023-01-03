@@ -215,12 +215,51 @@ public class QuerydslBasicTest {
     public void join() {
         List<Member> result = queryFactory
                 .selectFrom(member)
-                .leftJoin(member.team, team)
+                .join(member.team, team)
                 .where(team.name.eq("teamA"))
                 .fetch();
 
         assertThat(result)
                 .extracting("username")
                 .containsExactly("member1", "member2");
+    }
+    /**
+     * 회원과 팀을 조인
+     * 팀 이름이 teamA인 팀만 조인
+     * 회원은 모두 조회
+     * left join team
+     * on team.name = 'teamA'
+     */
+    @Test
+    public void join_on_filtering() {
+        //Tuple: 조회 타입이 여러 개일 경우
+        List<Tuple> result = queryFactory
+                .select(member, team)
+                .from(member)
+                .leftJoin(member.team, team)
+                .on(team.name.eq("teamA"))
+                .fetch();
+        for(Tuple tuple:result) {
+            System.out.println("tuple = " + tuple);
+        }
+    }
+    /**
+     * 연관관계가 없는 외부 조인
+     * 회원이름과 팀이름을 조인
+     */
+    @Test
+    public void join_on_no_relation() {
+        em.persist(new Member("teamA"));
+        em.persist(new Member("teamB"));
+        em.persist(new Member("teamC"));
+        List<Tuple> result = queryFactory
+                .select(member, team)
+                .from(member)
+                .leftJoin(team)//member.team 추가하면 연관관계가 있는 외부 조인
+                .on(member.username.eq(team.name))
+                .fetch();
+        for(Tuple tuple:result) {
+            System.out.println("tuple = " + tuple);
+        }
     }
 }
