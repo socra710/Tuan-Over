@@ -1,46 +1,21 @@
 package com.f1soft.turnovers.entity;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Getter
 @Entity
-@Data
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of = {"id", "username", "age"})
+@Table(name = "members")
 public class Member {
-    @Id @GeneratedValue
-    @Column(name = "member_id")
-    private Long id;
-    private String username;
-    private int age;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    //manytoone은 fetch lazy 해줘야함
-    @JoinColumn(name = "team_id")
-    private Team team;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    public Member(String username) {
-        this(username, 0, null);
-    }
+    @Column(length = 30, nullable = false, unique = true)
+    private String email;
 
-    public Member(String username, int age) {
-        this(username, age, null);
-    }
-
-    public Member(String username, int age, Team team) {
-        this.username = username;
-        this.age = age;
-        if(team != null) {
-            changeTeam(team);
-        }
-    }
-
-    public void changeTeam(Team team) {
-        this.team = team;
-        team.getMembers().add(this);
-    }
+    @Column(length = 20, nullable = false)
+    private String name;
 }

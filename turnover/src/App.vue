@@ -19,14 +19,14 @@
 
       const router = useRouter();
       let layout = null;
-      auth.onAuthStateChanged(user => {
-        if (user) {
-          const { currentUser } = auth;
-          console.log('Currently logged in user', currentUser);
-        } else {
-          router.replace('/');
-        }
-      });
+      // auth.onAuthStateChanged(user => {
+      //   if (user) {
+      //     const { currentUser } = auth;
+      //     console.log('Currently logged in user', currentUser);
+      //   } else {
+      //     router.replace('/');
+      //   }
+      // });
 
       layout = computed(
         () => `${currentRoute.value.meta.layout || defaultLayout}-layout`

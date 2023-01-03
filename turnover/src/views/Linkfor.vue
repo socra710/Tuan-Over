@@ -28,8 +28,9 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, reactive, ref} from "vue";
-  import axios from "axios";
+import {computed, defineComponent, reactive, ref} from "vue";
+import axios from "axios";
+import {userInfo} from "@/stores/UserInfo";
 
 export default defineComponent({
   name: "Linkfor",
@@ -38,7 +39,9 @@ export default defineComponent({
         items: []
     })
 
-    axios.get("/api/links").then(({data}) => {
+    const user = userInfo().getUserInfo;
+
+    axios.get('/api/links').then(({data}) => {
       links.items = data;
       console.log(links);
     });

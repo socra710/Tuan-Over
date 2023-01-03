@@ -13,9 +13,6 @@ public class Link {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(length = 18, nullable = false)
-    private String comCd;
-
     @Column(length = 20, nullable = false)
     private String userId;
 
