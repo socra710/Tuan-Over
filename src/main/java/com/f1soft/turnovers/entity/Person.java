@@ -18,6 +18,6 @@ public class Person {
     @Column(length = 30, nullable = false)
     private String name;
 
-    @Column(length = 200, nullable = false)
+    @Column(length = 200)
     private String image;
 }

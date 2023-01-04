@@ -13,8 +13,8 @@ public class Link {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(length = 20, nullable = false)
-    private String userId;
+    @Column(nullable = false)
+    private int userId;
 
     @Column(length = 200, nullable = false)
     private String title;

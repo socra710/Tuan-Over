@@ -33,9 +33,8 @@ public class LinkController {
 
         if (claims != null) {
             int id = Integer.parseInt(claims.get("id").toString());
-            Person person = personRepository.findById(id);
 
-            List<Link> link = linkRepository.findByUserId(person.getEmail());
+            List<Link> link = linkRepository.findByUserId(id);
             return new ResponseEntity<>(link, HttpStatus.OK);
         }
 
