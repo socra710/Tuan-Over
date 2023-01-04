@@ -68,11 +68,6 @@ import {defineComponent, reactive} from "vue";
                   }
 
                   axios.post('/api/account/login', loginUser).then((res) => {
-                    storeUserInfo.setUserInfo({
-                      userId: user.email,
-                      userNm: user.displayName,
-                      userImg: user.photoURL
-                    });
                     router.replace('/dashboard');
                     window.alert('로그인 하였습니다.');
                   }).catch((e) => {

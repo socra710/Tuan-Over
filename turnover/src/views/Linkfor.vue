@@ -39,11 +39,8 @@ export default defineComponent({
         items: []
     })
 
-    const user = userInfo().getUserInfo;
-
     axios.get('/api/links').then(({data}) => {
       links.items = data;
-      console.log(links);
     });
 
     function splitedList(row: string | null) {
