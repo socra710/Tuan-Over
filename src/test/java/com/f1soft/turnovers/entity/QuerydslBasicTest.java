@@ -262,4 +262,16 @@ public class QuerydslBasicTest {
             System.out.println("tuple = " + tuple);
         }
     }
+
+    @Test
+    public void fetchJoinNo() {
+        em.flush();
+        em.clear();
+        //영속성 context 남아있는 데이터 지움
+
+        Member findMember = queryFactory
+                .selectFrom(member)
+                .where(member.username.eq("member1"))
+                .fetchOne();
+    }
 }
