@@ -1,5 +1,6 @@
 package com.f1soft.turnovers.controller;
 
+import com.f1soft.turnovers.entity.Member;
 import com.f1soft.turnovers.entity.Person;
 import com.f1soft.turnovers.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;

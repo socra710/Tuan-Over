@@ -4,8 +4,6 @@ import com.f1soft.turnovers.entity.Link;
 import com.f1soft.turnovers.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface LinkRepository extends JpaRepository<Link, Integer> {
-    List<Link> findByUserId(String userId);
+public interface MemberRepository extends JpaRepository<Member, Integer> {
+    Member findByEmail(String email);
 }

@@ -1,7 +1,7 @@
 package com.f1soft.turnovers.controller;
 
-import com.f1soft.turnovers.entity.Item;
 import com.f1soft.turnovers.entity.Link;
+import com.f1soft.turnovers.entity.Member;
 import com.f1soft.turnovers.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,9 @@ public class LinkController {
 
     @GetMapping("/api/links")
     public List<Link> getLinks() {
-        List<Link> links = linkRepository.findAll();
-        return links;
+
+        List<Link> link = linkRepository.findByUserId("socra810@gmail.com");
+        System.out.println(link);
+        return link;
     }
 }

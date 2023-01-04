@@ -39,11 +39,12 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from "vue";
+import {defineComponent, reactive} from "vue";
   import { useRouter } from "vue-router";
   import firebase from "@/firebase";
   import { getAuth, setPersistence, signInWithPopup, GoogleAuthProvider, browserSessionPersistence } from "firebase/auth";
   import { userInfo } from "@/stores/UserInfo";
+  import axios from "axios";
 
   export default defineComponent({
     name: "Login",
@@ -55,44 +56,38 @@
         const provider = new GoogleAuthProvider();
         const auth = getAuth(firebase);
 
-        auth.onAuthStateChanged(user => {
-          if (user) {
-            storeUserInfo.setUserInfo({
-              userId: user.email,
-              userNm: user.displayName,
-              userImg: user.photoURL
-            });
-            router.replace("/dashboard");
-          } else {
-            setPersistence(auth, browserSessionPersistence)
-            .then(() => {
-              signInWithPopup(auth, provider)
-                  .then((result) => {
-                    // This gives you a Google Access Token. You can use it to access the Google API.
-                    // const credential = GoogleAuthProvider.credentialFromResult(result);
-                    // const token = credential.accessToken;
-                    const user = result.user;
+        setPersistence(auth, browserSessionPersistence)
+        .then(() => {
+          signInWithPopup(auth, provider)
+              .then((result) => {
+                const user = result.user;
+                if (user) {
+                  const loginUser = {
+                    email: user.email,
+                    password: user.email
+                  }
 
-                    if (user) {
-                      storeUserInfo.setUserInfo({
-                        userId: user.email,
-                        userNm: user.displayName,
-                        userImg: user.photoURL
-                      });
-                      router.replace("/dashboard");
-                    }
-                  }).catch((error) => {
-                const credential = GoogleAuthProvider.credentialFromError(error);
-                console.log(credential);
-              });
-            })
-            .catch((error) => {
-              // Handle Errors here.
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              console.log(errorCode)
-            });
-          }
+                  axios.post('/api/account/login', loginUser).then((res) => {
+                    storeUserInfo.setUserInfo({
+                      userId: user.email,
+                      userNm: user.displayName,
+                      userImg: user.photoURL
+                    });
+                    router.replace('/dashboard');
+                    window.alert('로그인 하였습니다.');
+                  }).catch((e) => {
+                    window.alert('로그인 정보가 존재하지 않습니다.');
+                  });
+                }
+              }).catch((error) => {
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            console.log(credential);
+          });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode)
         });
       }
 
