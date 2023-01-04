@@ -49,7 +49,6 @@ import {defineComponent, reactive} from "vue";
   export default defineComponent({
     name: "Login",
     setup() {
-      const storeUserInfo = userInfo();
       const router = useRouter();
 
       function login() {

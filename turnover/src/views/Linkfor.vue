@@ -40,7 +40,9 @@ export default defineComponent({
     })
 
     axios.get('/api/links').then(({data}) => {
-      links.items = data;
+      if (data) {
+        links.items = data;
+      }
     });
 
     function splitedList(row: string | null) {
