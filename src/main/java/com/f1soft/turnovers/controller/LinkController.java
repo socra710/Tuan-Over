@@ -21,11 +21,11 @@ public class LinkController {
 
     @Autowired
     LinkRepository linkRepository;
+
     @Autowired
     PersonRepository personRepository;
     @Autowired
     JwtService jwtService;
-
     @GetMapping("/api/links")
     public ResponseEntity getLinks(@CookieValue(value = "token", required = false) String token) {
 
