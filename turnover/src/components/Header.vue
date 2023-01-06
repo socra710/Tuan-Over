@@ -88,25 +88,10 @@
           leave-from-class="scale-100 opacity-100"
           leave-to-class="scale-95 opacity-0"
         >
-          <div
-            v-show="dropdownOpen"
-            class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl"
-          >
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-              >Profile</a
-            >
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-              >Products</a
-            >
-            <router-link
-              to="/"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-              >Log out</router-link
-            >
+          <div v-show="dropdownOpen" class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl">
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Products</a>
+            <a href="#" @click="logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Log out</a>
           </div>
         </transition>
       </div>
@@ -118,14 +103,36 @@
 import {computed, defineComponent, ref} from "vue";
 import { useSidebar } from "../hooks/useSidebar";
 import { userInfo } from "@/stores/UserInfo";
+import axios from "axios";
+import {useRouter} from "vue-router";
+import Swal from "sweetalert2";
 
 export default defineComponent({
-  setup(props, {emit}) {
-
+  setup() {
     const dropdownOpen = ref(false);
     const { isOpen } = useSidebar();
 
+    const router = useRouter();
+    function logout() {
+      Swal.fire({
+        // title: '확인',
+        text: '로그아웃 할까요?',
+        icon: 'question',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: '네',
+        denyButtonText: `아니요`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.post('/api/account/logout').then((res) => {
+            window.sessionStorage.removeItem('userInfo');
+            router.replace('/');
+          });
+        }
+      })
+    }
     return {
+      logout,
       isOpen,
       dropdownOpen,
       userInfo: computed(() => userInfo().getUserInfo)
