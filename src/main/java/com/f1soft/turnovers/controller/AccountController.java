@@ -39,10 +39,7 @@ public class AccountController {
             savePerson.setName(userInfo.get("name"));
             savePerson.setImage(userInfo.get("image"));
 
-            System.out.println(savePerson);
-            personRepository.save(savePerson);
-
-            person = personRepository.findByEmail(userInfo.get("email"));
+            person = personRepository.save(savePerson);
         }
 
         int id = person.getId();
