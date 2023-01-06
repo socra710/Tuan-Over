@@ -30,24 +30,33 @@ public class AccountController {
     @PostMapping("/api/account/login")
     public ResponseEntity login(@RequestBody Map<String, String> userInfo,
                                 HttpServletResponse res) {
+
         Person person = personRepository.findByEmail(userInfo.get("email"));
 
-        if (person != null) {
-            int id = person.getId();
+        if (person == null) {
+            Person savePerson = new Person();
+            savePerson.setEmail(userInfo.get("email"));
+            savePerson.setName(userInfo.get("name"));
+            savePerson.setImage(userInfo.get("image"));
 
-            JwtService jwtService = new JwtServiceImpl();
-            String token = jwtService.getToken("id", id);
+            System.out.println(savePerson);
+            personRepository.save(savePerson);
 
-            Cookie cookie = new Cookie("token", token);
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-
-            res.addCookie(cookie);
-
-            return new ResponseEntity<>(person, HttpStatus.OK);
+            person = personRepository.findByEmail(userInfo.get("email"));
         }
 
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        int id = person.getId();
+
+        JwtService jwtService = new JwtServiceImpl();
+        String token = jwtService.getToken("id", id);
+
+        Cookie cookie = new Cookie("token", token);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+
+        res.addCookie(cookie);
+
+        return new ResponseEntity<>(person, HttpStatus.OK);
     }
 
     @PostMapping("/api/account/logout")

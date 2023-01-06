@@ -64,7 +64,8 @@ import Swal from "sweetalert2";
                 if (user) {
                   const loginUser = {
                     email: user.email,
-                    password: user.email
+                    name: user.displayName,
+                    image: user.photoURL
                   }
 
                   axios.post('/api/account/login', loginUser).then((res) => {
