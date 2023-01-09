@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, computed, watch} from "vue";
+  import {defineComponent, computed, watch} from "vue";
   import {useRoute, useRouter} from "vue-router";
   import firebase from "@/firebase";
   import { getAuth } from "firebase/auth";

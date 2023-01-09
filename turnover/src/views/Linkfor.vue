@@ -30,7 +30,6 @@
 <script lang="ts">
 import {computed, defineComponent, reactive, ref} from "vue";
 import axios from "axios";
-import {userInfo} from "@/stores/UserInfo";
 
 export default defineComponent({
   name: "Linkfor",

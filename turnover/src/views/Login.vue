@@ -45,6 +45,7 @@ import {defineComponent, reactive} from "vue";
   import { getAuth, setPersistence, signInWithPopup, GoogleAuthProvider, browserSessionPersistence } from "firebase/auth";
   import { userInfo } from "@/stores/UserInfo";
   import axios from "axios";
+import Swal from "sweetalert2";
 
   export default defineComponent({
     name: "Login",
@@ -63,12 +64,29 @@ import {defineComponent, reactive} from "vue";
                 if (user) {
                   const loginUser = {
                     email: user.email,
-                    password: user.email
+                    name: user.displayName,
+                    image: user.photoURL
                   }
 
                   axios.post('/api/account/login', loginUser).then((res) => {
+                    const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'bottom-end',
+                      showConfirmButton: false,
+                      timer: 3000,
+                      timerProgressBar: true,
+                      didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                      }
+                    })
+
+                    Toast.fire({
+                      icon: 'success',
+                      title: '로그인 하였습니다.'
+                    })
+
                     router.replace('/dashboard');
-                    window.alert('로그인 하였습니다.');
                   }).catch((e) => {
                     window.alert('로그인 정보가 존재하지 않습니다.');
                   });
